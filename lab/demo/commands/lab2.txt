@@ -1,0 +1,20 @@
+# Lab 2: Brokewell
+# Commands in the order of the guide. Copy and paste into the terminal.
+
+# 1. Put the APK on the phone
+adb shell pm list packages -3
+adb shell dumpsys package xyIBgcE.FKnaCEV.XDKUPweO | sed -n '/requested permissions/,/install permissions/p'
+
+# 2. What it carries
+unzip -l ~/Desktop/brokewell.apk | grep apk
+
+# 3. Run it on the phone
+adb shell pm list packages -3
+adb shell dumpsys package yswQyzrVXkL.otYAKidgxIZ.KVbjpFngbx | grep -E "versionName|installerPackageName"
+
+# 4. What the real malware wants
+adb shell dumpsys package yswQyzrVXkL.otYAKidgxIZ.KVbjpFngbx | sed -n '/requested permissions/,/install permissions/p' | head -16
+adb shell dumpsys package yswQyzrVXkL.otYAKidgxIZ.KVbjpFngbx | grep -A1 accessibilityservice
+
+# 5. Reset the phone
+python3 ~/Desktop/reset_phone.py

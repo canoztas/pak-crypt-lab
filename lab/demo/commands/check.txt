@@ -1,0 +1,6 @@
+# Before you start
+# Commands in the order of the guide. Copy and paste into the terminal.
+
+# Check
+adb devices
+frida-ps -H 127.0.0.1:27042 -a

@@ -1,0 +1,14 @@
+Review the supplied decompiled Java function and its constants.
+Return a JSON object with these fields:
+name, summary, evidence, uncertainty.
+
+Use a short proposed function name. Explain the input, output and side effects.
+For each behavior claim, identify the method call or expression that supports it.
+Separate string construction from encryption, and URL construction from a
+network request. State which caller or runtime observation would resolve missing
+context. Do not infer an algorithm or malware capability from a class name alone.
+
+Review constants.java first. Request rpc_client.java and installer.java only
+when needed to answer a specific caller or side-effect question.
+
+This is a prompt for an approved local model. No inference result is bundled.

@@ -1,0 +1,30 @@
+# Lab 1: Google Service Framework
+# Commands in the order of the guide. Copy and paste into the terminal.
+
+# 1. Put the APK on the phone
+adb shell pm list packages -3
+
+# 2. What it asks for
+adb shell dumpsys package com.example.reverseshell2 | sed -n '/requested permissions/,/install permissions/p'
+
+# 3. What is inside
+jadx-gui ~/Desktop/service_framework.apk &
+
+# 4. Where it connects when it runs
+cat hooks/observe_c2.js
+adb shell cmd package resolve-activity --brief -c android.intent.category.LAUNCHER com.example.reverseshell2
+frida -H 127.0.0.1:27042 -p $(adb shell pidof com.example.reverseshell2) -l hooks/observe_c2.js -q -t 10
+
+# 5. The lab cuts the connection
+adb shell ping -c 1 -W 2 3.67.78.149
+sudo iptables -S PCC_EMULATOR
+
+# 7. Turn the findings into a rule
+unzip -p ~/Desktop/service_framework.apk classes.dex > ~/Desktop/service_framework.dex
+cat rules/service_framework_rat.yar
+python3 -c "import yara; r=yara.compile(filepath='rules/service_framework_rat.yar'); print(r.match('/home/analyst/Desktop/service_framework.dex'))"
+unzip -p ~/Desktop/authenticator_downloader.apk classes.dex > ~/Desktop/other.dex
+python3 -c "import yara; r=yara.compile(filepath='rules/service_framework_rat.yar'); print(r.match('/home/analyst/Desktop/other.dex'))"
+
+# 8. Reset the phone
+python3 ~/Desktop/reset_phone.py
