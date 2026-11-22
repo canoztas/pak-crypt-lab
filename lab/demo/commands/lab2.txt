@@ -1,7 +1,11 @@
 # Lab 2: Brokewell
 # Commands in the order of the guide. Copy and paste into the terminal.
 
+# Go to the lab folder first. The hooks/ and rules/ paths below start from it.
+cd /opt/pcc-lab/demo
+
 # 1. Put the APK on the phone
+# By hand: Drag brokewell.apk onto the Android Phone window. A banking app called "BNL" installs on the phone.
 adb shell pm list packages -3
 adb shell dumpsys package xyIBgcE.FKnaCEV.XDKUPweO | sed -n '/requested permissions/,/install permissions/p'
 
@@ -9,12 +13,16 @@ adb shell dumpsys package xyIBgcE.FKnaCEV.XDKUPweO | sed -n '/requested permissi
 unzip -l ~/Desktop/brokewell.apk | grep apk
 
 # 3. Run it on the phone
+# By hand: Open the app on the phone. In the middle it says SECURITY UPDATE AVAILABLE! with CONTINUE underneath. Press it.
+# By hand: Android opens the Install unknown apps screen: turn on Allow from this source, go back, and press CONTINUE once more. Within twenty seconds the second app is installed.
 adb shell pm list packages -3
 adb shell dumpsys package yswQyzrVXkL.otYAKidgxIZ.KVbjpFngbx | grep -E "versionName|installerPackageName"
+adb shell pidof yswQyzrVXkL.otYAKidgxIZ.KVbjpFngbx
 
 # 4. What the real malware wants
 adb shell dumpsys package yswQyzrVXkL.otYAKidgxIZ.KVbjpFngbx | sed -n '/requested permissions/,/install permissions/p' | head -16
 adb shell dumpsys package yswQyzrVXkL.otYAKidgxIZ.KVbjpFngbx | grep -A1 accessibilityservice
+adb shell settings get secure enabled_accessibility_services
 
 # 5. Reset the phone
 python3 ~/Desktop/reset_phone.py

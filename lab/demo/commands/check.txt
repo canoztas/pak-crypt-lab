@@ -1,6 +1,9 @@
 # Before you start
 # Commands in the order of the guide. Copy and paste into the terminal.
 
+# Go to the lab folder first. The hooks/ and rules/ paths below start from it.
+cd /opt/pcc-lab/demo
+
 # Check
 adb devices
 frida-ps -H 127.0.0.1:27042 -a

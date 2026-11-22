@@ -1,11 +1,16 @@
 # Lab 3: Authenticator downloader
 # Commands in the order of the guide. Copy and paste into the terminal.
 
+# Go to the lab folder first. The hooks/ and rules/ paths below start from it.
+cd /opt/pcc-lab/demo
+
 # 1. Put the APK on the phone
+# By hand: Drag authenticator_downloader.apk onto the Android Phone window. It installs as "2FA Authenticator".
 adb shell pm list packages -3
 
 # 2. Look at it in jadx
 jadx-gui ~/Desktop/authenticator_downloader.apk &
+# By hand: Press Ctrl+N and type h.c.e.a.
 
 # 3. Read the strings with Frida
 cat hooks/read_constants.js

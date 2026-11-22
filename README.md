@@ -61,6 +61,26 @@ To run the core of all three labs unattended and see whether your machine reprod
 sudo /opt/pcc-lab/venv/bin/python /opt/pcc-lab/selftest.py
 ```
 
+## Ready-made virtual machine
+
+The workshop also hands out the lab as a virtual machine, `PakCrypt-Mobile-Malware-Lab.ova`
+(7.1 GB), with everything above already installed.
+
+- SHA-256: `77ad4aa3bcf84a283b18e2593e74b67a9750395d40de00d94d343c7023f08a2b`
+- Import it in VirtualBox or VMware. It asks for 4 CPUs and 8 GB of memory.
+- Turn on nested virtualisation (VT-x/AMD-V) for the machine before you start it. The phone
+  does not run without it.
+- It logs in by itself as `analyst`, password `analyst`. The phone is off after boot; start it
+  with `python3 ~/Desktop/reset_phone.py`.
+- The three samples are on its desktop, unpacked. Treat the whole machine as you treat the samples.
+
+The image was built on 22 November 2026. The command files in this repository are newer. To
+bring them up to date, run this inside the machine while it has internet access:
+
+```
+for f in check lab1 lab2 lab3; do sudo curl -fsSL -o /opt/pcc-lab/demo/commands/$f.txt https://raw.githubusercontent.com/canoztas/pak-crypt-lab/main/lab/demo/commands/$f.txt; done
+```
+
 ## Doing the labs
 
 Every command of every lab is on your machine, in order, with a comment line above each step:

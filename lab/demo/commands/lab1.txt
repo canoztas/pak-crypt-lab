@@ -1,11 +1,18 @@
 # Lab 1: Google Service Framework
 # Commands in the order of the guide. Copy and paste into the terminal.
 
+# Go to the lab folder first. The hooks/ and rules/ paths below start from it.
+cd /opt/pcc-lab/demo
+
 # 1. Put the APK on the phone
+# By hand: Drag service_framework.apk from the desktop onto the Android Phone window and drop it. An app called "Google Service Framework" installs on the phone.
 adb shell pm list packages -3
+adb shell cmd package resolve-activity --brief -c android.intent.category.LAUNCHER com.example.reverseshell2
 
 # 2. What it asks for
 adb shell dumpsys package com.example.reverseshell2 | sed -n '/requested permissions/,/install permissions/p'
+# By hand: The phone shows the same thing. Open the app and Android puts the permission list on screen:
+# By hand: Press CONTINUE; the app only starts working after that.
 
 # 3. What is inside
 jadx-gui ~/Desktop/service_framework.apk &
