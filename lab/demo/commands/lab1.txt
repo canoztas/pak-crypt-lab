@@ -20,6 +20,7 @@ jadx-gui ~/Desktop/service_framework.apk &
 # 4. Where it connects when it runs
 cat hooks/observe_c2.js
 adb shell cmd package resolve-activity --brief -c android.intent.category.LAUNCHER com.example.reverseshell2
+adb shell pidof com.example.reverseshell2
 frida -H 127.0.0.1:27042 -p $(adb shell pidof com.example.reverseshell2) -l hooks/observe_c2.js -q -t 10
 
 # 5. The lab cuts the connection
